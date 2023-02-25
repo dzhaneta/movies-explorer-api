@@ -1,9 +1,9 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://krasivoemesto.nomoredomains.work',
-  'http://krasivoemesto.nomoredomains.work',
-  'https://api.krasivoemesto.nomoredomains.work',
-  'http://api.krasivoemesto.nomoredomains.work',
+  'https://beatfilmlist.nomoredomains.work',
+  'http://beatfilmlist.nomoredomains.work',
+  'https://api.beatfilmlist.nomoredomains.work',
+  'http://api.beatfilmlist.nomoredomains.work',
   'localhost:3000',
 ];
 

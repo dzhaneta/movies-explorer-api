@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dzhaneta/express-mesto-gha.git"
+    "url": "git+https://github.com/dzhaneta/movies-explorer-api.git"
   },
   "keywords": [],
   "author": "Dzhaneta Kabertay",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dzhaneta/express-mesto-gha/issues"
+    "url": "https://github.com/dzhaneta/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/dzhaneta/express-mesto-gha#readme",
+  "homepage": "https://github.com/dzhaneta/movies-explorer-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
