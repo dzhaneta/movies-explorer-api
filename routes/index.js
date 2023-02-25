@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { errors } = require('celebrate');
+const helmet = require('helmet');
+const rateLimiter = require('../middlewares/reqLimiter');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 const cors = require('../middlewares/cors');
 const { validateSignup, validateSignin } = require('../middlewares/reqValidation');
@@ -9,10 +11,12 @@ const NotFoundError = require('../errors/notFoundError');
 const errHandler = require('../middlewares/errHandler');
 
 // логгер запросов
+router.use(rateLimiter);
 router.use(requestLogger);
 
-// проверка кросс-доменных запросов
+// безопасность кросс-доменных запросов и заголовков
 router.use(cors);
+router.use(helmet());
 
 router.get('/crash-test', () => {
   setTimeout(() => {
