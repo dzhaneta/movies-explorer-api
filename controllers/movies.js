@@ -1,11 +1,14 @@
 const Movie = require('../models/movie');
+const constants = require('../utils/constants');
 const NotFoundError = require('../errors/notFoundError');
 const ForbiddenError = require('../errors/forbiddenError');
 const BadRequestError = require('../errors/badRequestError');
 
 module.exports.sendMovies = (req, res, next) => {
-  Movie.find({})
-    .populate(['owner', 'likes'])
+  const ownerId = req.user._id;
+
+  Movie.find({ owner: ownerId })
+    .populate('owner')
     .sort({ createdAt: -1 })
     .then((movies) => res.send(movies))
     .catch(next);
@@ -41,13 +44,11 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
     owner: ownerId,
   })
-    .then((movie) => movie.populate(['owner', 'likes']))
+    .then((movie) => movie.populate('owner'))
     .then((movie) => res.status(201).send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError(
-          'Переданы некорректные данные при создании фильма.',
-        ));
+        return next(new BadRequestError(constants.movie_create_bad_request));
       }
 
       return next(err);
@@ -58,19 +59,19 @@ module.exports.deleteMovieById = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Фильм с указанным _id не найдена.');
+        throw new NotFoundError(constants.movie_not_found);
       }
 
       if (movie.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('Нельзя удалить фильм другого пользователя.');
+        throw new ForbiddenError(constants.movie_delete_no_access);
       }
 
       return movie.remove()
-        .then(() => res.send({ message: 'Фильм удален' }));
+        .then(() => res.send({ message: constants.movie_delete_success }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequestError('Переданы некорректные данные при удалении фильма.'));
+        return next(new BadRequestError(constants.movie_delete_bad_request));
       }
       return next(err);
     });

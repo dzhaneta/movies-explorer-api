@@ -1,28 +1,9 @@
 const router = require('express').Router();
-const { errors } = require('celebrate');
-const helmet = require('helmet');
-const rateLimiter = require('../middlewares/reqLimiter');
-const { requestLogger, errorLogger } = require('../middlewares/logger');
-const cors = require('../middlewares/cors');
+const constants = require('../utils/constants');
 const { validateSignup, validateSignin } = require('../middlewares/reqValidation');
 const auth = require('../middlewares/auth');
 const { login, createUser, logout } = require('../controllers/users');
 const NotFoundError = require('../errors/notFoundError');
-const errHandler = require('../middlewares/errHandler');
-
-// логгер запросов
-router.use(rateLimiter);
-router.use(requestLogger);
-
-// безопасность кросс-доменных запросов и заголовков
-router.use(cors);
-router.use(helmet());
-
-router.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 
 // роуты, не требующие авторизации
 router.post('/signup', validateSignup, createUser);
@@ -38,16 +19,7 @@ router.use('/movies', require('./movies'));
 router.post('/signout', logout);
 
 router.use((req, res, next) => {
-  next(new NotFoundError('Такой страницы не существует.'));
+  next(new NotFoundError(constants.http_not_found));
 });
-
-// логгер ошибок
-router.use(errorLogger);
-
-// обработчик ошибок celebrate
-router.use(errors());
-
-// централизованный обработчик ошибок
-router.use(errHandler);
 
 module.exports = router;

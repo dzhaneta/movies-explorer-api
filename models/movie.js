@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const constants = require('../utils/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -27,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => validator.isURL(url),
-      message: 'Введен некорректный URL',
+      message: constants.url_bad,
     },
   },
   trailerLink: {
@@ -35,7 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => validator.isURL(url),
-      message: 'Введен некорректный URL',
+      message: constants.url_bad,
     },
   },
   thumbnail: {
@@ -43,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => validator.isURL(url),
-      message: 'Введен некорректный URL',
+      message: constants.url_bad,
     },
   },
   owner: {
@@ -52,7 +53,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
-    type: String,
+    type: Number,
     required: true,
   },
   nameRU: {
@@ -62,15 +63,6 @@ const movieSchema = new mongoose.Schema({
   nameEN: {
     type: String,
     required: true,
-  },
-  likes: [{ // заготовка под лайки-сохранения
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    default: [],
-  }],
-  createdAt: {
-    type: Date,
-    default: Date.now,
   },
 });
 

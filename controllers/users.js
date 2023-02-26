@@ -1,6 +1,8 @@
-const { NODE_ENV, JWT_SECRET, DOMAIN = 'localhost' } = process.env;
+const { DOMAIN = 'localhost' } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('../config');
+const constants = require('../utils/constants');
 const User = require('../models/user');
 const BadRequestError = require('../errors/badRequestError');
 const ConflictError = require('../errors/conflictError');
@@ -22,12 +24,10 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError(err.message));
+        return next(new BadRequestError(constants.user_create_bad_request));
       }
       if (err.code === 11000) {
-        return next(new ConflictError(
-          'Пользователь с таким email уже существует.',
-        ));
+        return next(new ConflictError(constants.user_email_exist));
       }
       return next(err);
     });
@@ -41,7 +41,7 @@ module.exports.login = (req, res, next) => {
       // аутентификация успешна! создадим токен
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        config.jwt_secret,
         { expiresIn: '7d' },
       );
 
@@ -68,7 +68,7 @@ module.exports.logout = (req, res) => {
       sameSite: 'none',
       secure: true,
     })
-    .send({ message: 'Выход выполнен' });
+    .send({ message: constants.user_logout_success });
 };
 
 module.exports.sendUserInfo = (req, res, next) => {
@@ -77,7 +77,7 @@ module.exports.sendUserInfo = (req, res, next) => {
   User.findById(ownerId)
     .then((userInfo) => {
       if (!userInfo) {
-        return next(new NotFoundError('Пользователь не найден.'));
+        return next(new NotFoundError(constants.user_not_found));
       }
       return res.send({
         name: userInfo.name,
@@ -102,9 +102,7 @@ module.exports.updateUserInfo = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        return next(new NotFoundError(
-          'Пользователь с указанным _id не найден.',
-        ));
+        return next(new NotFoundError(constants.user_not_found));
       }
 
       return res.send({
@@ -114,9 +112,11 @@ module.exports.updateUserInfo = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError(
-          'Переданы некорректные данные при обновлении профиля.',
-        ));
+        return next(new BadRequestError(constants.user_update_bad_request));
+      }
+
+      if (err.code === 11000) {
+        return next(new ConflictError(constants.user_email_exist));
       }
 
       return next(err);
