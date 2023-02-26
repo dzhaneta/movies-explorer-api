@@ -9,7 +9,6 @@ module.exports.sendMovies = (req, res, next) => {
 
   Movie.find({ owner: ownerId })
     .populate('owner')
-    .sort({ createdAt: -1 })
     .then((movies) => res.send(movies))
     .catch(next);
 };
