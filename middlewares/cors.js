@@ -4,7 +4,8 @@ const allowedCors = [
   'http://beatfilmlist.nomoredomains.work',
   'https://api.beatfilmlist.nomoredomains.work',
   'http://api.beatfilmlist.nomoredomains.work',
-  'localhost:3000',
+  'http://localhost:3000',
+  'https://localhost:3000',
 ];
 
 const cors = function (req, res, next) {
