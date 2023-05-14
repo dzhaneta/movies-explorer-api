@@ -42,7 +42,6 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         config.jwt_secret,
-        { expiresIn: '7d' },
       );
 
       // вернём токен, записав его в httpOnly куку
