@@ -2,14 +2,15 @@
 
 Backend для проекта **Movie Explorer** — приложения, в котором можно найти фильмы из архива BeatFilm Festival по запросу и сохранить в свою коллекцию.
 
+
 ## Techs
----
 
 - Javascript
 - Node.js
 - Express
 - MongoDB
 - mongoose
+
 
 ## Документация к API
 
@@ -37,6 +38,20 @@ Backend для проекта **Movie Explorer** — приложения, в к
 ##### `DELETE /movies/_id `
 удаляет сохранённый фильм по `id` - **роут защищен авторизацией**
 
+
+## Фичи
+- REST API
+- authentication via **JWT** stored safely in httpOnly cookies;
+- валидация запросов к серверу (через **Joi** и **Celebrate**);
+- валидация запросов к базе данных (через **Mongoose**);
+- security middlewares:
+  - контроль заголовков с [helmet](https://www.npmjs.com/package/helmet);
+  - контроль числа запросов с [express-rate-limit](https://www.npmjs.com/package/express-rate-limit);
+  - XSS sanitation by [express-xss-sanitizer](https://www.npmjs.com/package/express-xss-sanitizer);
+  - CORS control by [cors](https://www.npmjs.com/package/cors);
+- логирование запросов и ошибок
+
+ Безопасность (CORS, helmet, express-rate-limit)
 
 ## URL
 
