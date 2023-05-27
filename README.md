@@ -41,17 +41,16 @@ Backend для проекта **Movie Explorer** — приложения, в к
 
 ## Фичи
 - REST API
-- authentication via **JWT** stored safely in httpOnly cookies;
-- валидация запросов к серверу (через **Joi** и **Celebrate**);
-- валидация запросов к базе данных (через **Mongoose**);
-- security middlewares:
-  - контроль заголовков с [helmet](https://www.npmjs.com/package/helmet);
-  - контроль числа запросов с [express-rate-limit](https://www.npmjs.com/package/express-rate-limit);
-  - XSS sanitation by [express-xss-sanitizer](https://www.npmjs.com/package/express-xss-sanitizer);
-  - CORS control by [cors](https://www.npmjs.com/package/cors);
+- **JWT** надежно хранится в httpOnly куках
+- бережное хранение пароля в виде хэша
+- валидация запросов к серверу (через **Joi** и **Celebrate**)
+- валидация запросов к базе данных (через **Mongoose**)
+- мидлвары безопасности:
+  - контроль заголовков с [helmet](https://www.npmjs.com/package/helmet)
+  - контроль числа запросов с [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
+  - контроль кросс-доменных запросов с [cors](https://www.npmjs.com/package/cors)
 - логирование запросов и ошибок
 
- Безопасность (CORS, helmet, express-rate-limit)
 
 ## URL
 
