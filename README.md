@@ -2,7 +2,9 @@
 
 Backend для проекта **Movie Explorer** — приложения, в котором можно найти фильмы из архива BeatFilm Festival по запросу и сохранить в свою коллекцию.
 
-## Techs---
+## Techs
+---
+
 - Javascript
 - Node.js
 - Express
