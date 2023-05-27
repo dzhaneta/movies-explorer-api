@@ -5,7 +5,7 @@ Backend для проекта **Movie Explorer** — приложения, в к
 ## Techs
 
 - Javascript
-- Node
+- Node.js
 - Express
 - MongoDB
 - mongoose
@@ -19,7 +19,7 @@ Backend для проекта **Movie Explorer** — приложения, в к
 проверяет переданные в теле `email и password` и возвращает `JWT`
 
 ##### `POST /users/signout` 
-удалится `JWT` из куков пользователя 
+удаляет `JWT` из куков пользователя 
 
 ##### `GET /users/me`
 возвращает информацию о пользователе, его `email и name` - **роут защищен авторизацией**
@@ -40,6 +40,7 @@ Backend для проекта **Movie Explorer** — приложения, в к
 ## URL
 
 https://api.beatfilmlist.nomoredomains.work
+
 IP  130.193.41.88
 
 ## Как запустить проект
