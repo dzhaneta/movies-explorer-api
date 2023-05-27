@@ -15,25 +15,25 @@ Backend для проекта **Movie Explorer** — приложения, в к
 ##### `POST /users/signup`
 создаёт пользователя с переданными в теле `email, password и name`
 
-#### `POST /users/signin` 
+##### `POST /users/signin` 
 проверяет переданные в теле `email и password` и возвращает `JWT`
 
-#### `POST /users/signout` 
+##### `POST /users/signout` 
 удалится `JWT` из куков пользователя 
 
-#### `GET /users/me`
+##### `GET /users/me`
 возвращает информацию о пользователе, его `email и name` - **роут защищен авторизацией**
 
-#### `PATCH /users/me`
+##### `PATCH /users/me`
 обновляет информацию о пользователе, его `email и name` - **роут защищен авторизацией**
 
-#### `GET /movies`
+##### `GET /movies`
 возвращает все сохранённые пользователем фильмы - **роут защищен авторизацией**
 
-#### `POST /movies`
+##### `POST /movies`
 создаёт фильм с переданными в теле `country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId` - **роут защищен авторизацией**
 
-#### `DELETE /movies/_id `
+##### `DELETE /movies/_id `
 удаляет сохранённый фильм по `id` - **роут защищен авторизацией**
 
 
