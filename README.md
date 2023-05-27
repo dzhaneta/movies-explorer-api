@@ -12,7 +12,7 @@ Backend для проекта **Movie Explorer** — приложения, в к
 
 ## Документация к API
 
-#### `POST /users/signup`
+##### `POST /users/signup`
 создаёт пользователя с переданными в теле `email, password и name`
 
 #### `POST /users/signin` 
